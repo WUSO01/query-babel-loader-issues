@@ -1,22 +1,32 @@
-import { customElement, html, LitElement, query } from 'lit-element'
+import { customElement, html } from 'lit-element'
+import { MobxLitElement } from '@adobe/lit-mobx'
+import { observable, action, computed } from 'mobx'
 
-@customElement('custom-container')
-export class CustomContainer extends LitElement {
-  @query('#btn') btnEle: HTMLButtonElement
+class Counter {
+  @observable
+  public count = 1
 
-  firstUpdated () {
-    console.log('this.btn is:', this.btnEle)
-
-    this.btnEle.addEventListener('click', () => {
-      console.log('click')
-    })
+  @computed get doubleCount () {
+    return this.count * 2
   }
 
-  render () {
+  @action
+  public increment() {
+    this.count++
+  }
+}
+
+// create instance that can be shared across components
+const counter = new Counter()
+
+@customElement('custom-container')
+export class CustomContainer extends MobxLitElement {
+  private store = counter
+
+  public render() {
     return html`
-      <div>
-        <button id="btn">button</button>
-      </div>
+      <p>Count is: ${this.store.count}</p>
+      <p>MaxCount is: ${this.store.doubleCount}</p>
     `
   }
 }

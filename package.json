@@ -24,7 +24,10 @@
     "webpack-cli": "^4.2.0"
   },
   "dependencies": {
+    "@adobe/lit-mobx": "^1.0.1",
+    "@webcomponents/webcomponentsjs": "^2.5.0",
     "html-webpack-plugin": "^4.5.0",
-    "lit-element": "^2.4.0"
+    "lit-element": "^2.4.0",
+    "mobx": "^6.0.4"
   }
 }
